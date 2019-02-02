@@ -1,0 +1,4 @@
+#Generate binary
+go -o build <binary name to set> <source code file name>
+#Function
+If function name starts with a small letter then its a private function else its a public function
