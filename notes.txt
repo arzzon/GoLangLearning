@@ -1,4 +1,29 @@
 #Generate binary
-go -o build <binary name to set> <source code file name>
+go build -o <binary name to set> <source code file name>
 #Function
 If function name starts with a small letter then its a private function else its a public function
+#Building package
+create a directory inside src with the package name
+run go install in that directory
+A file with the packagename.a will be created inside pkg directory
+#Object oriented
+We don't need to write that a function is implementing an interfaces
+if a function uses the methods of the interface, then it implements it
+#interface
+type <interface name> interface{
+    members
+}
+#Custom type
+type <custom name> <type-name used>
+Ex: type myFloat float64
+#Reflection
+reflect.TypeOf()
+reflect.ValueOf()
+#FILE HANDLING
+f = os.Open(file name)
+#COMMANDS
+go vet
+go run -race
+go pprof
+dep init
+#### c go
