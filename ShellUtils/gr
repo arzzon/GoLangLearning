@@ -1,0 +1,13 @@
+if [ -z $1 ]
+then
+	echo "Enter the go file name with(out) extension."
+elif [ $1 == "-h" ]
+then
+	echo "To run a go program run, gr <file_name_without_extension>"
+elif [[ $1 == *.go ]]
+then
+	go run $1
+else
+	go run $1.go
+fi
+

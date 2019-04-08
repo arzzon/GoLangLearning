@@ -18,7 +18,7 @@ func main() {
 	println(func2())
 	r1, r2 := func3()
 	println("r1=", r1, "r2=", r2)
-	r3, r4, r5 := func4()
+	r3, r4, r5 := func4() // Or we can also ignore certain number of returned values by using _ (blank), ex, r3, r4, _ := func4()
 	println("area=", r3, "x=", r4, "y=", r5)
 	func5(5, true)
 	func6(1, 2, 3)
