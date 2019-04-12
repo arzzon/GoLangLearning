@@ -11,13 +11,17 @@ package main
 
 import "fmt"
 
-
 func main() {
-	//SYNTAX:
+	// SYNTAX:
 	// map[index type] value type
 	var m map[string]string
 	m = make(map[string]string)
 	m["name"] = "arbaaz"
-	fmt.Println(m["name"])
+	m["country"] = "Ind"
+	fmt.Println(m) //Displays the key value pairs.
+
+	// Deleting a key-value pair
+	delete(m, "country")
+	fmt.Println(m) //Displays the key value pairs.
 
 }
