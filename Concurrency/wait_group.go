@@ -19,7 +19,10 @@ func main() {
 	sites := []string{
 		"https://www.google.com/",
 		"https://duckduckgo.com/",
-		"https://www.bing.com/"}
+		"https://www.bing.com/",
+		"asda",
+		"asfdsa",
+		"sadgfag"}
 
 	for _, site := range sites {
 		// Increment the WaitGroup counter.
@@ -30,4 +33,5 @@ func main() {
 
 	// wait all goroutines to finish
 	wg.Wait()
+	for{}
 }

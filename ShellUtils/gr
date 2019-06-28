@@ -11,3 +11,4 @@ else
 	go run $1.go
 fi
 
+
