@@ -24,4 +24,18 @@ func main() {
 	delete(m, "country")
 	fmt.Println(m) //Displays the key value pairs.
 
+	//Checking whether the map contains a key or not
+	//Key should be absent
+	if x , ok := m["age"] ; ok{
+		fmt.Printf("Key present: %v\n",x)
+	} else{
+		fmt.Println("Key absent")
+	}
+	// Key should be present
+	if x , ok := m["name"] ; ok{
+		fmt.Printf("Key present: %v\n",x)
+        } else{
+                fmt.Println("Key absent")
+        }
+
 }
