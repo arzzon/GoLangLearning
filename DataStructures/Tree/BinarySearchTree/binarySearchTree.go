@@ -3,6 +3,7 @@ package main
 import (
 	"container/list"
 	"fmt"
+	"reflect"
 )
 
 // node represents a single node in the tree
@@ -28,9 +29,9 @@ type BinarySearchTree struct {
 	root *node
 	size int
 	// Insert
-	// delete
+	// remove
 	// search
-	// inorder,preorder,postorder
+	// inorder,preorder,postorder,level order
 }
 
 // NewBinarySearchTree creates a new BinarySearchTree
@@ -67,14 +68,19 @@ func (t *BinarySearchTree) Insert(data int) {
 }
 
 // Remove removes a specific node from the tree
-func (t *BinarySearchTree) Remove(root *node, data int) *node {
+func (t *BinarySearchTree) Remove(root *node, data int) {
+	t.root = t.RemoveNode(root, data)
+}
+
+// RemoveNode removes a specific node from the tree
+func (t *BinarySearchTree) RemoveNode(root *node, data int) *node {
 	if root == nil {
 		return nil
 	}
 	if root.left != nil && data < root.data {
-		root.left = t.Remove(root.left, data)
+		root.left = t.RemoveNode(root.left, data)
 	} else if root.right != nil && data > root.data {
-		root.right = t.Remove(root.right, data)
+		root.right = t.RemoveNode(root.right, data)
 	} else {
 		if root.left == nil && root.right == nil { // Leaf node to be removed
 			root = nil
@@ -89,7 +95,7 @@ func (t *BinarySearchTree) Remove(root *node, data int) *node {
 			tempNode := t.FindMinNode(root.right)
 			// store the data of the node that is going to be replaced.
 			data = tempNode.data
-			root = t.Remove(root, tempNode.data)
+			root = t.RemoveNode(root, tempNode.data)
 			root.data = data
 		}
 	}
@@ -97,6 +103,7 @@ func (t *BinarySearchTree) Remove(root *node, data int) *node {
 
 }
 
+// FindMinNode finds the node with the minimum value
 func (t *BinarySearchTree) FindMinNode(root *node) *node {
 	if root == nil {
 		return nil
@@ -143,6 +150,14 @@ func (t *BinarySearchTree) Postorder(n *node) {
 
 // LevelOrder traverses the BinarySearchTree in level wise
 func (t *BinarySearchTree) LevelOrder() {
+	/*
+		ALGO:
+				1. First insert root and newLine in queue
+				2. Dequeue till queue is empty
+					2.1. If dequeued element is a node,then
+						2.1.1. Enqueue its left and then right children(left - > right order) if they exist
+		NOTE: Take an example and then walk through it.
+	*/
 	// If tree is empty then return
 	if t.root == nil {
 		return
@@ -169,46 +184,55 @@ func (t *BinarySearchTree) LevelOrder() {
 	}
 }
 
-// // LevelOrder traverses the BinarySearchTree in level wise
-// func (t *BinarySearchTree) LevelOrderPretty() {
-// 	// If tree is empty then return
-// 	if t.root == nil {
-// 		return
-// 	}
-// 	// Create a queue
-// 	q := list.New()
-// 	// Enqueue the root node first
-// 	q.PushBack(t.root)
-// 	q.PushBack(nil)
-// 	// nodeEle stores the first node stored in the qeueue encapsulated inside Element{}
-// 	nodeEle := q.Front()
-// 	// Dequeue till queue is empty
-// 	for nodeEle != nil {
-// 		if nodeEle.Value == nil {
-// 			fmt.Println()
-// 			q.Remove(nodeEle)
-// 			nodeEle = q.Front()
-// 			continue
-// 		}
-// 		// Get the node and print the data
-// 		n := nodeEle.Value.(*node)
-// 		fmt.Printf("%d ", n.data)
-// 		if n.left != nil { // If there is a left child then enqueue it
-// 			q.PushBack(n.left)
-// 		}
-// 		if n.right != nil { // If there is a right child then enqueue it as well
-// 			q.PushBack(n.right)
-// 			q.Remove(nodeEle) // Dequeue
-// 			nodeEle = q.Front()
-// 			if q.Front() == nil {
-// 				q.PushBack(nil)
-// 			}
-// 			continue
-// 		}
-// 		q.Remove(nodeEle)   // Dequeue
-// 		nodeEle = q.Front() // Peek for the front element in the queue
-// 	}
-// }
+// LevelOrderPretty traverses the BinarySearchTree in level wise
+func (t *BinarySearchTree) LevelOrderPretty() {
+	/*
+		ALGO:
+			1. First insert root and newLine in queue
+			2. Dequeue till queue is empty
+				2.1. If dequeued element is a node,then
+					2.1.2. Enqueue its left and then right children(left - > right order) if they exist
+				2.2. If dequeued element is newLine, then
+					2.2.1. Check if it's the last newLine, if so then stop
+					2.2.2. Else move to next line and enqueue another newLine to the queue.
+		NOTE: Take an example and then walk through it.
+	*/
+	// If tree is empty then return
+	if t.root == nil {
+		return
+	}
+	newLine := true
+	// Create a queue
+	q := list.New()
+	// Enqueue the root node first
+	q.PushBack(t.root)
+	q.PushBack(newLine)
+	// nodeEle stores the first node stored in the qeueue encapsulated inside Element{}
+	nodeEle := q.Front()
+	// Dequeue till queue is empty
+	for nodeEle != nil {
+		if reflect.TypeOf(nodeEle.Value) == reflect.TypeOf(newLine) {
+			fmt.Println()
+			q.Remove(nodeEle)
+			// If its the last newLine then stop
+			if q.Front() == nil {
+				break
+			}
+			q.PushBack(newLine)
+		} else {
+			n := nodeEle.Value.(*node)
+			fmt.Printf("%v\t", n.data)
+			q.Remove(nodeEle)
+			if n.left != nil {
+				q.PushBack(n.left)
+			}
+			if n.right != nil {
+				q.PushBack(n.right)
+			}
+		}
+		nodeEle = q.Front()
+	}
+}
 
 // Traverse traverses the BinarySearchTree in Preorder fashion
 func (t *BinarySearchTree) Traverse(data int) {
@@ -236,10 +260,9 @@ func main() {
 	fmt.Println("LevelOrder")
 	tree.LevelOrder()
 	fmt.Println("Remove")
-	tree.root = tree.Remove(tree.root, 2)
-	fmt.Println("LevelOrder")
-	tree.LevelOrder()
-	//tree.LevelOrderPretty()
+	tree.Remove(tree.root, 2)
+	fmt.Println("Pretty Level order")
+	tree.LevelOrderPretty()
 }
 
 /*
