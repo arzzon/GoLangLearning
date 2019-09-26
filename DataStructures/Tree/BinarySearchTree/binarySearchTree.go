@@ -7,19 +7,19 @@ import (
 
 // node represents a single node in the tree
 type node struct {
-	parent *node
-	data   int
-	left   *node
-	right  *node
+	//parent *node
+	data  int
+	left  *node
+	right *node
 }
 
 // newNode creates a node
 func newNode(data int) *node {
 	return &node{
-		parent: nil,
-		data:   data,
-		left:   nil,
-		right:  nil,
+		//parent: nil,
+		data:  data,
+		left:  nil,
+		right: nil,
 	}
 }
 
@@ -67,46 +67,49 @@ func (t *BinarySearchTree) Insert(data int) {
 }
 
 // Remove removes a specific node from the tree
-// func (t *BinarySearchTree) Remove(data int) {
-// 	if t.root == nil {
-// 		return
-// 	}
-// 	tempNode := t.root
-// 	tempParentNode := tempNode
-// 	for tempNode != nil && tempNode.data != data {
-// 		if data < tempNode.data {
-// 			tempParentNode = tempNode
-// 			tempNode = tempNode.left
-// 		} else {
-// 			tempParentNode = tempNode
-// 			tempNode = tempNode.right
-// 		}
-// 	}
-// 	if tempNode == nil {
-// 		return
-// 	}
-// 	if tempNode == t.root {
-// 		t.root = nil
-// 	} else if tempNode.left == nil && tempNode.right == nil {
-// 		if tempParentNode.left != nil && tempParentNode.left.data == data {
-// 			tempParentNode.left = nil
-// 		} else {
-// 			tempParentNode.right = nil
-// 		}
-// 	} else {
-// 		targetNodeParent := tempParentNode
-// 		for tempNode != nil && tempNode.data != data {
-// 			if data < tempNode.data {
-// 				tempParentNode = tempNode
-// 				tempNode = tempNode.left
-// 			} else {
-// 				tempParentNode = tempNode
-// 				tempNode = tempNode.right
-// 			}
-// 		}
-// 	}
+func (t *BinarySearchTree) Remove(root *node, data int) *node {
+	if root == nil {
+		return nil
+	}
+	if root.left != nil && data < root.data {
+		root.left = t.Remove(root.left, data)
+	} else if root.right != nil && data > root.data {
+		root.right = t.Remove(root.right, data)
+	} else {
+		if root.left == nil && root.right == nil { // Leaf node to be removed
+			root = nil
+			//return root
+		} else if root.left == nil { // right node to be removed(node with single child).
+			root = root.right
+			//return root
+		} else if root.right == nil { // left node to be removed(node with single child).
+			root = root.left
+			//return root
+		} else { // node with 2 children
+			tempNode := t.FindMinNode(root.right)
+			// store the data of the node that is going to be replaced.
+			data = tempNode.data
+			root = t.Remove(root, tempNode.data)
+			root.data = data
+		}
+	}
+	return root
 
-// }
+}
+
+func (t *BinarySearchTree) FindMinNode(root *node) *node {
+	if root == nil {
+		return nil
+	}
+	tempNode := root
+	tempParentNode := tempNode
+	for tempNode != nil {
+		tempParentNode = tempNode
+		tempNode = tempNode.left
+
+	}
+	return tempParentNode
+}
 
 // Preorder traverses BinarySearchTree in VLR order
 func (t *BinarySearchTree) Preorder(n *node) {
@@ -232,6 +235,15 @@ func main() {
 	tree.Postorder(tree.root)
 	fmt.Println("LevelOrder")
 	tree.LevelOrder()
-	fmt.Println()
+	fmt.Println("Remove")
+	tree.root = tree.Remove(tree.root, 2)
+	fmt.Println("LevelOrder")
+	tree.LevelOrder()
 	//tree.LevelOrderPretty()
 }
+
+/*
+			4
+		2		6
+	  1	  3   5   7
+*/
