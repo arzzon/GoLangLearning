@@ -44,6 +44,24 @@ func NewBinarySearchTree() *BinarySearchTree {
 
 // Insert inserts a new node to the BinarySearchTree
 func (t *BinarySearchTree) Insert(data int) {
+	/*
+		ALGO:
+			0. If tree is empty then create a new node and assign that to the root, Else do the following.
+			1. Store the root in temporary parent node which will store the parent node for the temp node in each step of iteration.
+			2. Store the root in another temporary node, that will tell us where to insert data.
+			3. Repeat till temp node is nil
+				3.1. if data is less then,
+					3.1.1. First keep update the temporary parent node with the current node's address.
+					3.1.2. Update the temporary node with it's left child's address.
+				3.2. if data is greater then,
+					3.2.1. First keep update the temporary parent node with the current node's address.
+					3.2.2. Update the temporary node with it's right child's address.
+			4. The loop exits beacuse temporary node is nil, that means by using the temporary parent node we can insert the new node.
+				4.1. Check if the new node's data is less than the temporary parent node's data, if thats the case, then
+					4.1.1. Create the new node and assign the address to the left link of temporary parent node.
+				4.2. Else, Create the new node and assign the address to the left link of temporary parent node.
+				update size.
+	*/
 	if t.root == nil {
 		t.root = newNode(data)
 		t.size++
@@ -64,6 +82,7 @@ func (t *BinarySearchTree) Insert(data int) {
 		} else {
 			tempParentNode.right = newNode(data)
 		}
+		t.size++
 	}
 }
 
@@ -74,6 +93,27 @@ func (t *BinarySearchTree) Remove(root *node, data int) {
 
 // RemoveNode removes a specific node from the tree
 func (t *BinarySearchTree) RemoveNode(root *node, data int) *node {
+	/*
+		ALGO: RemovNode(root, data)
+			[First search for the node to remove]
+			1. If root is nil then its the terminating condition of recursion
+			2. If there is a left child and data is less than current node's data then data removed has to be in the left subtree,
+				so recursively call RemoveNode with the left child node and data and store the returned result in current node's left address.
+			3. If there is a right child and data is greater than current node's data then data removed has to be in the right subtree,
+				so recursively call RemoveNode with the right child node and data and store the returned result in current node's right address.
+			4. Else we have reached the target node.
+			[Remove the node]
+				Case 1: (Leaf node)
+					4.1. return nil that will finally get assigned to its parent node's left/right link in recursive call back.
+				Case 2: (node with single child)
+					5.2. return that single child's address to the parent node's left/right link in recursive call back.
+				Case 3: (node with two children)
+					5.3. Find the node with the minimum value in the right subtree
+					5.4. Store the minimum node's data in a variable
+					5.5. Call the RemoveNode with the minimum value and current node's right child's address and store the returned reference to the current node's right link.
+					5.6. Now copy the minimum value in the current node's data
+				Update size.
+	*/
 	if root == nil {
 		return nil
 	}
@@ -98,6 +138,7 @@ func (t *BinarySearchTree) RemoveNode(root *node, data int) *node {
 			root = t.RemoveNode(root, tempNode.data)
 			root.data = data
 		}
+		t.size--
 	}
 	return root
 
@@ -105,6 +146,11 @@ func (t *BinarySearchTree) RemoveNode(root *node, data int) *node {
 
 // FindMinNode finds the node with the minimum value
 func (t *BinarySearchTree) FindMinNode(root *node) *node {
+	/*
+		ALGO:
+			1. Recurcively/ Iteretively go to the left most element in the tree.
+			2. Return it.
+	*/
 	if root == nil {
 		return nil
 	}
