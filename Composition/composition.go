@@ -9,7 +9,7 @@
 		---
 		A
 	}
-	Then all the member variables & methods are A in accessible through B(Important: But not the other way round).
+	Then all the member variables & methods in A are accessible through B(Important: But not the other way round).
 */
 package main
 
