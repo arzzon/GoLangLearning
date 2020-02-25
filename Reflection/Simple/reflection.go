@@ -15,6 +15,6 @@ func main() {
 	X1 := vertex{X: 0, Y: 1}
 	fmt.Println("Type of i:", reflect.TypeOf(i))
 	fmt.Println("Type of X1:", reflect.TypeOf(X1))
-	fmt.Println("Type of X1:", reflect.ValueOf(X1))
-	//fmt.Println("Type of i:", reflect.TypeOf(i).Name)
+	fmt.Println("ValueOf of X1:", reflect.ValueOf(X1))
+	fmt.Println("Type of i:", reflect.TypeOf(i).Kind())
 }
