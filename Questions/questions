@@ -1,0 +1,14 @@
+/*
+    Some of the triky questions
+*/
+1) How to ensure that a certain value is returned to the calling function even if an error/exception/fatal/panic has occured
+   inside that function?
+A: Use Panic-Recover-Defer and use named return values, just set the value to be returned to the named variable, go will do the rest.
+
+2) Functions vs method
+
+3) make() vs new()
+A: make is only used to create arrays, slices and maps where new is used to create structs. Also new() returns the pointer to the newly
+   created entity where as make doesn't do so.
+
+4) string vs free string

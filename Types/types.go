@@ -10,7 +10,10 @@
 ***************************************************************************** */
 package main
 
-import "reflect"
+import (
+	"fmt"
+	"reflect"
+)
 
 func main() {
 	/* Different datatypes available:
@@ -68,12 +71,24 @@ func main() {
 
 	//rune
 	println("*******rune*******")
-	println("rune is an alias of int32")
+	println("rune is an alias of int32, they can store unicode integer values encoded in UTF-8")
+	var r rune
+	r = '\u6C34'
+	fmt.Printf("r= %c\n", r)
 
 	//string
 	println("*******string*******")
-	var r string
-	r = "hi"
-	println("r=", r)
+	var s string
+	s = "hi"
+	println("s=", s)
+
+	//free string
+	// In free string the string grave accent characters are used `` and the string value is uninterpreted.
+	// That means the escape characters are ignored and the runes if any are also igorned, that means the string is printed exactly the same as defined.
+	// This is helpful when building database queries.
+	println("*******free string*******")
+	var fs string
+	fs = `\t hi \u6C34\x20 \n`
+	println("fs=", fs)
 
 }

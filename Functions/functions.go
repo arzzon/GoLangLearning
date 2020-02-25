@@ -21,7 +21,12 @@ func main() {
 	r3, r4, r5 := func4() // Or we can also ignore certain number of returned values by using _ (blank), ex, r3, r4, _ := func4()
 	println("area=", r3, "x=", r4, "y=", r5)
 	func5(5, true)
-	func6(1, 2, 3)
+	s, p := func6(1, 2, 3)
+	fmt.Println("SUM", s, " PRODUCT:", p)
+	fmt.Println("Methods")
+	person := new(Person)
+	// person := Person{}
+	fmt.Println(person.tellYourName())
 }
 
 // Function that doesn't return anything
@@ -57,11 +62,24 @@ func func5(x int, y bool) {
 
 // Variadic function
 // Multiple arguments of same type can be passed
-func func6(nums ...int) { //nums is a slice of int
+// Notice how multiple values are returned
+func func6(nums ...int) (int, int) { //nums is a slice of int
 	fmt.Print(nums, " ")
-	total := 0
+	sum := 0
+	product := 1
 	for _, num := range nums {
-		total += num
+		sum += num
+		product *= num
 	}
-	fmt.Println(total)
+	return sum, product
+}
+
+// Methods
+// Methods are like functions but they are bound to structs.
+type Person struct {
+	name string
+}
+
+func (p Person) tellYourName() string {
+	return p.name
 }
