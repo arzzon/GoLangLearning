@@ -33,5 +33,7 @@ func main() {
 
 	// wait all goroutines to finish
 	wg.Wait()
-	for{}
+	fmt.Println("wg.Wait() blocks untill it's internal counter becomes 0, wg.Add(2) then two times wg.Done() has to be called.")
+	for {
+	}
 }
