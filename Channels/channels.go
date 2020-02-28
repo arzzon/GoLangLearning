@@ -5,19 +5,20 @@
 	1) Send:      ch <- <some value>
 	2) Recieve:   <- ch
 	3) Close:     close(ch)
-	There are broadly two types of channels and each type has subtypes as well:
-	1) Bidirectional channel: Both send and receive can be done.
-			   |
-			   |----------->  Buffered: Can hold more values in a queue and is non blocking unless it's full.
-			   |                        While sending if it's full then it's blocking, otherwise it's non blocking.
-			   |                        While receiving if there is no element in the channel then it's blocking, otherwise it's non blocking.
-			   |----------->  UnBuffered: Can hold only one value and is blocking.
-	2) Unidirectional channel: It's capable of either sending or receiving.
-			   |
-			   |-----------> Send only channel: data can only be sent to it, but cann't be received from it.
-			   |             Declaration:     var ch chan<- int
-			   |-----------> Receive only channel: data can only be received from the channel, but cann't be sent to it.
-			   |             Declaration:     var ch <-chan int
+	There are broadly two types of channels:
+	1) Based on the size of channel:
+		|----------->  Buffered: Can hold more values in a queue and is non blocking unless it's full.
+		|                        While sending if it's full then it's blocking, otherwise it's non blocking.
+		|                        While receiving if there is no element in the channel then it's blocking, otherwise it's non blocking.
+		|----------->  UnBuffered: Can hold only one value and is blocking.
+	2) Based on the direction of data flow to/from the channel.
+		|-----------> Bidirectional channel: Both send and receive can be done.
+		|-----------> Unidirectional channel: It's capable of either sending or receiving.
+							|
+							|-----------> Send only channel: data can only be sent to it, but cann't be received from it.
+							|             Declaration:     var ch chan<- int
+							|-----------> Receive only channel: data can only be received from the channel, but cann't be sent to it.
+							|             Declaration:     var ch <-chan int
 */
 
 package main
