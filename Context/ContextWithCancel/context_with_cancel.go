@@ -1,3 +1,6 @@
+/*
+	context withCancel
+*/
 package main
 
 import (
@@ -12,7 +15,7 @@ func main() {
 	ctx, cancel := context.WithCancel(ctx)
 	go func() {
 		time.Sleep(time.Second)
-		fmt.Println("finished")
+		fmt.Printf("context ended after %v seconds\n", time.Second)
 		cancel()
 	}()
 	sleepThenWrite(ctx, 10*time.Second, "This is an example of background context.")
