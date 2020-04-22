@@ -8,6 +8,7 @@
 	We know that a channel can return two values x, ok := <-ch,
 	So when a channel is closed it returns false, which is stored in ok in the above example.
 */
+
 package main
 
 import (

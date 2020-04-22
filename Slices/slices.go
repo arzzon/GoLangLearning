@@ -7,6 +7,13 @@
 		len int
 		cap int
 	}
+	How to declare a slice:
+	1) A slice literal is declared just like an array literal, except you leave out the element count:
+	   letters := []string{"a", "b", "c", "d"}
+	2) A slice can be created with the built-in function called make, which has the signature:
+		func make([]T, len, cap) []	T
+	Link: https://blog.golang.org/slices-intro
+
 */
 package main
 
