@@ -1,13 +1,16 @@
-/* *****************************************************************************
- *  Name:      Arbaaz Khan
- *  Language:  go
- *
- *  Description:  In this program we have explored different types of datatypes
-                  available in go.
- *
- *  % go run types.go
- *
-***************************************************************************** */
+/*
+	*****************************************************************************
+	*  Name:      Arbaaz Khan
+	*  Language:  go
+	*
+	*  Description:  In this program we have explored different types of datatypes
+	                 available in go.
+	*
+	*  % go run types.go
+	*
+
+*****************************************************************************
+*/
 package main
 
 import (
@@ -82,7 +85,7 @@ func main() {
 	s = "hi"
 	println("s=", s)
 
-	//free string
+	// free string
 	// In free string the string grave accent characters are used `` and the string value is uninterpreted.
 	// That means the escape characters are ignored and the runes if any are also igorned, that means the string is printed exactly the same as defined.
 	// This is helpful when building database queries.

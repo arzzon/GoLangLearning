@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// defer follow LIFO principle
 func main() {
 	f()
 	defer fmt.Println("defer1")

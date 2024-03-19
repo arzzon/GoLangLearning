@@ -27,6 +27,19 @@ func main() {
 	person := new(Person)
 	// person := Person{}
 	fmt.Println(person.tellYourName())
+	fmt.Println("Anonymous functions/Lambda function/function literals")
+	/*
+		Go supports anonymous functions, also known as function literals or lambda functions.
+		An anonymous function is a function defined without a name. It's often used in
+		situations where a function is needed as an argument to another function or when you
+		need a short-lived function without the need for a name.
+	*/
+	result := func(x, y int) int {
+		return x + y
+	}(3, 4)
+	fmt.Println("Result from anonymous funtion:", result)
+	fmt.Println("Func as variable function")
+	demonstrateFunctionAsVariable()
 }
 
 // Function that doesn't return anything
@@ -82,4 +95,19 @@ type Person struct {
 
 func (p Person) tellYourName() string {
 	return p.name
+}
+
+// Demonstrate function as a variable
+type Operation func(int, int) int
+
+func add(a, b int) int {
+	return a + b
+}
+func sub(a, b int) int {
+	return a - b
+}
+func demonstrateFunctionAsVariable() {
+	var addOp Operation = add
+	var subOp Operation = sub
+	fmt.Println("AddOp result:", addOp(2, 1), "SubOp result", subOp(2, 1))
 }

@@ -28,4 +28,17 @@ func main() {
 	var a, b, c = 5, 1.9, "hi" // Or a, b, c := 4, 3, 5
 	fmt.Println("a =", a, "b =", b, "c =", c)
 
+	//Shadow variables
+	fmt.Println("Variable shadowing")
+	fmt.Println("shadow variable refers to a variable that is declared within a nested scope" +
+		"with the same name as a variable in an outer scope. When this occurs, the outer variable is" +
+		"said to be 'shadowed' by the inner variable.")
+	var sv int
+	sv = 100
+	if sv == 100 {
+		sv := 1 // sv is a new variable that shadows the sv present out of the if block
+		fmt.Println("Variable sv shadowed with value, sv:", sv)
+	}
+	fmt.Println("No shadow effect on variable sv out of the block, sv:", sv)
+
 }
