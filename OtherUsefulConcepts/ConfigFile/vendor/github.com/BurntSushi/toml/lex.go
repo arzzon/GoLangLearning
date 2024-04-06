@@ -81,8 +81,8 @@ type lexer struct {
 }
 
 type item struct {
-	typ  itemType
-	val  string
+	typ itemType
+	val string
 	line int
 }
 
